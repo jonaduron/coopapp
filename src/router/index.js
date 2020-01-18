@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Connection from '../views/Connection.vue'
+import CreateAccount from '../views/CreateAccount.vue'
 
 Vue.use(VueRouter)
 
@@ -19,6 +21,16 @@ const routes = [
     component: function () {
       return import(/* webpackChunkName: "about" */ '../views/About.vue')
     }
+  },
+  {
+    path: '/connection',
+    name: 'connection',
+    component: Connection
+  },
+  {
+    path: '/create-account',
+    name: 'CreateAccount',
+    component: CreateAccount
   }
 ]
 
