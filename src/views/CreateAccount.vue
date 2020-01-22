@@ -1,28 +1,28 @@
 <template>
-    <div class="create-account">
-        <div class="container">
+    <div class="create-account has-background-white-ter">
+        <div class="container has-blackground-">
             <section class="section">
                 <h1 class="title">Create account</h1>
                 <div class="field">
                     <label class="label">Fullname</label>
-                    <input v-model="fullname" class="input is-rounded" name="fullname">
+                    <input type="text" v-model="fullname" class="input is-rounded" name="fullname">
                 </div>
                 <div class="field">
                     <label class="label">Email</label>
-                    <input v-model="email" class="input is-rounded" name="email">
+                    <input type="email" v-model="email" class="input is-rounded" name="email">
                 </div>
                 <div class="field">
                     <label class="label">Password</label>
-                    <input v-model="password" class="input is-rounded" name="password">
+                    <input type="password" v-model="password" class="input is-rounded" name="password">
                 </div>
-                <!--<div class="field">
+                <div class="field">
                     <label class="label">Confirm password</label>
                     <input class="input is-rounded" name="confirmPassword">
-                </div>-->
+                </div>
                 <div class="media-center">
-                    <button class="button is-warning is-rounded" @click="createAccount()"><strong>Signup</strong></button>
+                    <button class="button is-primary is-rounded" @click="createAccount()"><strong>Signup</strong></button>
                     <div><br>
-                        <p><router-link to="/connection">Come back!</router-link></p>
+                        <p><router-link to="/connection"><strong>Come back!</strong></router-link></p>
                     </div>
                 </div>
             </section>
@@ -38,7 +38,8 @@
             return {
                 fullname: '',
                 email: '',
-                password: ''
+                password: '',
+                passwordConfirmation: ''
             }
         },
         mounted() {
@@ -52,6 +53,8 @@
                         password:  this.password
                     }).then((response) => {
                         console.log(response);
+                        alert('Account created succesfully');
+                        this.$router.push('/connection');
                     }).catch(
                         error => console.log(error)
                     );
@@ -63,5 +66,8 @@
 <style scoped>
 .container {
     text-align: center;
+}
+body {
+   background-color: darkgoldenrod; 
 }
 </style>

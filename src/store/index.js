@@ -14,6 +14,7 @@ export default new Vuex.Store({
   state: {
     user: false,
     session_token: false,
+    user_id: null
   },
   mutations: {
   },

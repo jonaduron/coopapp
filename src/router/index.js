@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Connection from '../views/Connection.vue'
 import CreateAccount from '../views/CreateAccount.vue'
+import Channels from '../views/Channels.vue'
+import Members from '../views/Members.vue'
 
 Vue.use(VueRouter)
 
@@ -31,6 +33,16 @@ const routes = [
     path: '/create-account',
     name: 'CreateAccount',
     component: CreateAccount
+  },
+  {
+    path: '/channels',
+    name: 'Channels',
+    component: Channels
+  },
+  {
+    path: '/members',
+    name: 'Members',
+    component: Members
   }
 ]
 
