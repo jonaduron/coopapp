@@ -1,7 +1,7 @@
 <template>
     <div class="members has-background-white-ter">
         <Navigation></Navigation>
-          <div>        
+          <div>
             <div class="section is-pulled-left">
                 <div class="container">
                     <div class="title">Members</div>
