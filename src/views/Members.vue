@@ -1,10 +1,10 @@
 <template>
     <div class="members has-background-white-ter">
         <Navigation></Navigation>
-          <div>
+          <div class="container is-widescreen">
             <div class="section is-pulled-left">
                 <div class="container">
-                    <div class="title">Members</div>
+                    <div class="title is-1 is-pulled-left">Members</div>
                     <div class="card">               
                         <div class="member-item is-clickable" v-for="member in members" v-bind:key="member.id" @click="viewMember(member)">
                             <p>{{ member.fullname }}</p>

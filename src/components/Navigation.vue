@@ -1,40 +1,44 @@
 <template>
   <div class="navigation">
     <div class="container is-widescreen">
-      <nav class="navbar" role="navigation" aria-label="main navigation">
-          <div class="navbar-brand">
-            <div class="navbar-item">
-              <img src="../assets/coopapp2.png" alt="Coopapp">
+      <nav id="navbar" class="bd-navbar navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
+          <div class="container">
+            <div class="navbar-brand">
+              <a class="navbar-item">
+                <img src="../assets/coopapp2.png" alt="Coopapp"><p><strong>COOPAPP</strong></p>
+              </a>
+              <a class="navbar-burger" role="button" @click="showNav = !showNav" :class="{'is-active': showNav}">
+                <span></span>
+                <span></span>
+                <span></span>
+              </a>
             </div>
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </a>
-          </div>
-          <div class="navbar-menu">
-            <div class="navbar-start">
-              <router-link class="navbar-item" to="/">
-                Home
-              </router-link>
-              <router-link class="navbar-item" to="/channels">
-                Channels
-              </router-link>
-              <router-link class="navbar-item" to="/members">
-                Members
-              </router-link>         
-              <router-link class="navbar-item" to="/about">
-                About
-              </router-link>
-            </div>
-            <div class="navbar-end">
-              <div class="navbar-item">
-                <button class="button is-danger" @click="signout()">
-                  Signout
-                </button>
+            <div id="navbarmenu" class="navbar-menu" :class="{'is-active': showNav}">
+              <div class="navbar-start">
+                <router-link class="navbar-item" to="/">
+                  <strong>Home</strong>
+                </router-link>
+                <router-link class="navbar-item" to="/channels">
+                  <strong>Channels</strong>
+                </router-link>
+                <router-link class="navbar-item" to="/members">
+                  <strong>Members</strong>
+                </router-link>         
+                <router-link class="navbar-item" to="/about">
+                  <strong>About</strong>
+                </router-link>
+              </div>
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <p class="control"> 
+                    <button class="button is-danger" @click="signout()">
+                      <strong>Signout</strong>
+                    </button>
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+        </div>
       </nav>
     </div>
   </div>
@@ -45,6 +49,11 @@ export default {
   name: 'Navigation',
   props: {
     
+  },
+  data() {
+    return {
+      showNav: false
+    }
   },
   methods: {
     signout() {
@@ -59,7 +68,7 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!-- Add "scoped" attribute to limbd-navbar it CSS to this component only -->
 <style scoped>
 ul {
   list-style-type: none;
@@ -72,10 +81,7 @@ li {
 a {
   text-decoration: none !important;
 }
-* {
-  background-color: black;
-  color: white !important;
-}
+
 .navbar-item:hover {
   color: rgba(255, 0, 0, 0.89) !important;
 }
