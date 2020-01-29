@@ -1,46 +1,45 @@
 <template>
   <div class="navigation">
-    <div class="container is-widescreen">
-      <nav id="navbar" class="bd-navbar navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
-          <div class="container">
-            <div class="navbar-brand">
-              <a class="navbar-item">
-                <img src="../assets/coopapp2.png" alt="Coopapp"><p><strong>COOPAPP</strong></p>
-              </a>
-              <a class="navbar-burger" role="button" @click="showNav = !showNav" :class="{'is-active': showNav}">
-                <span></span>
-                <span></span>
-                <span></span>
-              </a>
+    <nav id="navbar" class="bd-navbar navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
+        <div class="container">
+          <div class="navbar-brand">
+            <a class="navbar-item">
+              <img src="../assets/coopapp2.png" alt="Coopapp"><p><strong>COOPAPP</strong></p>
+            </a>
+            <a class="navbar-burger" role="button" @click="showNav = !showNav" :class="{'is-active': showNav}">
+              <span></span>
+              <span></span>
+              <span></span>
+            </a>
+          </div>
+          <div id="navbarmenu" class="navbar-menu" :class="{'is-active': showNav}">
+            <div class="navbar-start">
+              <router-link class="navbar-item" to="/">
+                <i class="material-icons icon">home</i><strong>Home</strong>
+              </router-link>
+              <router-link class="navbar-item" to="/channels">
+                <i class="material-icons icon">forum</i><strong>Channels</strong>
+              </router-link>
+              <router-link class="navbar-item" to="/members">
+                <i class="material-icons icon">group</i><strong>Members</strong>
+              </router-link>         
+              <router-link class="navbar-item" to="/about">
+                <i class="material-icons icon">info</i><strong>About</strong>
+              </router-link>
             </div>
-            <div id="navbarmenu" class="navbar-menu" :class="{'is-active': showNav}">
-              <div class="navbar-start">
-                <router-link class="navbar-item" to="/">
-                  <strong>Home</strong>
-                </router-link>
-                <router-link class="navbar-item" to="/channels">
-                  <strong>Channels</strong>
-                </router-link>
-                <router-link class="navbar-item" to="/members">
-                  <strong>Members</strong>
-                </router-link>         
-                <router-link class="navbar-item" to="/about">
-                  <strong>About</strong>
-                </router-link>
-              </div>
-              <div class="navbar-end">
-                <div class="navbar-item">
-                  <p class="control"> 
-                    <button class="button is-danger" @click="signout()">
-                      <strong>Signout</strong>
-                    </button>
-                  </p>
+            <hr class="nabar-divider">
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="control"> 
+                  <div class="button is-danger" @click="signout()">
+                    <i class="material-icons icon">exit_to_app</i><strong>Signout</strong>
+                  </div>
                 </div>
               </div>
             </div>
-        </div>
-      </nav>
-    </div>
+          </div>
+      </div>
+    </nav>
   </div>
 </template>
 
@@ -77,12 +76,5 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
-}
-a {
-  text-decoration: none !important;
-}
-
-.navbar-item:hover {
-  color: rgba(255, 0, 0, 0.89) !important;
 }
 </style>

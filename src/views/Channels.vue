@@ -1,48 +1,46 @@
 <template>
-    <div class="channels has-background-white-ter">
+    <div class="channels">
         <Navigation></Navigation>
-        <div class="container is-widescreen">
-            <div class="section is-pulled-left">
-                <div class="container">
-                    <h1 class="title is-1 is-pulled-left">Channels</h1>
-                    <div class="card">               
-                        <div class="channel-item is-clickable" v-for="channel in channels" v-bind:key="channel.id" @click="viewChannel(channel)">
-                            <p>{{ channel.label }}</p>
+        <section class="hero is-medium intro">
+            <div class="hero-body">
+                <div class="container maincontainer">
+                    <div class="column">
+                        <h1 class="title intro-title">Channels</h1>
+                        <div class="channel-item is-hoverable" v-for="channel in channels" v-bind:key="channel.id" @click="viewChannel(channel)">
+                            <p>{{ channel.topic }}</p>
+                        </div>
+                    </div> 
+                    <div class="column">
+                        <h1 class="title intro-title">Channel selected</h1>
+                        <div v-if="channel">
+                            <div class="channel-visualization">
+                                <div class="container">
+                                    <p>{{ channel.topic }}</p>
+                                    <p>{{ channel.label }}</p>
+                                </div>
+                                <div class="control is-pulled-right">
+                                    <div class="button is-danger" @click="deleteChannel()">
+                                        <i class="material-icons icon">delete</i><strong>Delete</strong>
+                                    </div>
+                                    <div class="button is-primary" @click="shareChannel()">
+                                        <i class="material-icons icon">forward</i><router-link class="item" to="/messages">See messages</router-link>
+                                    </div>
+                                </div>    
+                            </div>
+                        </div>
+                        <div v-else>
+                            <p>In this section will appear a channel selected</p>
                         </div>
                     </div>
-                </div>        
-            </div>
-        </div>
-        <div class="content">
-            <div class="title">Channel</div>
-            <div v-if="channel" class="card">               
-                <div class="channel-visualization">
-                    <p>{{ channel.id }}</p>
-                    <p>{{ channel.label }}</p>
-                    <p>{{ channel.topic}}</p>
-                    <button class="button is-danger" @click="deleteChannel()">Delete</button>
-                    <button class="button is-warning" @click="activeEdit()">Edit</button>
-                    <section v-if="edit">
-                        <div class="field">
-                            <label class="label">Label</label>
-                            <input type="label" v-model="channel.label" class="input is-rounded" name="label">
-                        </div>
-                        <div class="field">
-                            <label class="topic">Topic</label>
-                            <input type="topic" v-model="channel.topic" class="input is-rounded" name="topic">
-                        </div>
-                    </section>
                 </div>
             </div>
-            <div v-else>
-                <p>In this section will appear a channel selected</p>
-            </div> 
-        </div>
+        </section>
     </div>
 </template>
 
 <script>
 import Navigation from '@/components/Navigation.vue'
+import { bus } from '../main.js'
 
 export default {
     name: "Channels",
@@ -59,18 +57,15 @@ export default {
     methods: {
         getChannels() {
             axios.get('channels?token='+this.$store.state.session_token).then((response) => {
-                console.log(response.data);
                 this.channels = response.data;
             }).catch(error => console.log(error));
         },
         viewChannel(channel) {
             this.channel = channel;
-            console.log(this.channel.id, this.channel.label, this.channel.topic);
         },
         deleteChannel() {
             axios.delete('channels/'+this.channel.id+'?token='+this.$store.state.session_token).then((response) => {
                 alert('it seems like it worked');
-                console.log(response.data);
             }).catch(error => console.log(error));
         },
         editChannel() {
@@ -78,8 +73,8 @@ export default {
                 console.log(response.data);
             }).catch(error => console.log(error));
         },
-        activeEdit() {
-            this.edit = true;
+        shareChannel() {
+            bus.$emit('get-channel', this.channel);
         }
     },
     mounted() {
@@ -89,5 +84,18 @@ export default {
 </script>
 
 <style scoped>
-
+.channel-item {
+    height: 2em;
+    border: 1px solid gray;
+    margin: 2px;
+    padding: 5px;
+    box-shadow: 0px 2px 2px 0px;
+}
+.maincontainer {
+    display: flex;
+    flex-flow: row wrap;
+}
+.item {
+    color: white;
+}
 </style>

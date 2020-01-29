@@ -5,6 +5,7 @@ import Connection from '../views/Connection.vue'
 import CreateAccount from '../views/CreateAccount.vue'
 import Channels from '../views/Channels.vue'
 import Members from '../views/Members.vue'
+import Messages from '../views/Messages.vue'
 
 Vue.use(VueRouter)
 
@@ -43,6 +44,11 @@ const routes = [
     path: '/members',
     name: 'Members',
     component: Members
+  },
+  {
+    path: '/messages',
+    name: 'Messages',
+    component: Messages
   }
 ]
 
