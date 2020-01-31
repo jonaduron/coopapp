@@ -7,7 +7,7 @@ import './../node_modules/bulma/css/bulma.css'
 
 window.axios = axios.create({
   baseURL: 'https://tools.sopress.net/iut/coop/api/',
-  headers: { 'Authorization': '57893d7fc2266cdc2fefa77c0ed6a31a3ce35c07'}
+  headers: { 'Authorization': '2929bce4e330ce300453976a646b1906516b9f40'}
 });
 Vue.config.productionTip = false
 

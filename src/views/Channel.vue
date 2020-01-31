@@ -1,11 +1,13 @@
 <template>
-    <div class="messages">
+    <div class="channel">
         <Navigation></Navigation>
         <div class="layout row">
             <div class="container">
-                <section class="hero is-info">
-                    <h1 class="title">{{ channel.label }}</h1>
-                    <h2 class="subtitle">{{ channel.topic }}</h2>
+                <section class="hero is-primary">
+                    <div class="">
+                        <h1 class="title">{{ channel.label }}</h1>
+                        <h2 class="subtitle">{{ channel.topic }}</h2>
+                    </div>
                 </section>
                 <div class="conteneur">
                     <div class="container" style="position: relative;">
@@ -23,7 +25,7 @@
                             </div>
                         </div>
                         <div class="typer">
-                            <input type="text" placeholder="Type here...">
+                            <input type="text" v-model="message" name="message" placeholder="Type here...">
                             <button type="button" class="blue--text emoji-panel btn btn--icon">
                                 <div class="btn_content">
                                     <i class="material-icons icon">mood</i>
@@ -47,30 +49,44 @@ import Navigation from '@/components/Navigation.vue';
 import { bus } from '../main.js';
 
 export default {
-    name: 'Messages',
+    name: 'Channel',
     components: {
         Navigation
     },
     data() {
         return {
             messages: [],
-            channel: ''
+            channel: '',
+            id: 0,
+            message: ""
         }
     },
     methods: {
         getMessages() {
-            axios.get('channels/'+this.channel_id+'/posts?token='+this.$store.state.session_token).then((response) => {
+            axios.get('channels/'+this.$route.params.id+'/posts?token='+this.$store.state.session_token).then((response) => {
                 this.messages = response.data;
+            }).catch(error => console.log(error));
+        },
+        getChannel() {
+            axios.get('channels/'+this.$route.params.id+'?token='+this.$store.state.session_token).then((response) => {
+                this.channel = response.data;
+            }).catch(error => console.log(error));
+        },
+        postMessage() {
+            axios.post('channels/'+this.channel.id+'/posts/&token='+this.$store.state.session_token, {
+                channel_id: this.channel.id,
+                member_id: this.member.id,
+                message: this.message
+            }).then((response) => {
+                console.log('it has been successful bro, you are la verga');
+                this.changeActiveState();
+                this.getChannels();
             }).catch(error => console.log(error));
         }
     },
-    created() {
-        bus.$on('get-channel', (data) => {
-            this.channel = data;
-        });
-    },
     mounted () {
         this.getMessages();
+        this.getChannel();
     },
 }
 </script>
