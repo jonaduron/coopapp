@@ -1,11 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Connection from '../views/Connection.vue'
-import CreateAccount from '../views/CreateAccount.vue'
-import Channels from '../views/Channels.vue'
-import Members from '../views/Members.vue'
-import Messages from '../views/Messages.vue'
 
 Vue.use(VueRouter)
 
@@ -28,27 +23,32 @@ const routes = [
   {
     path: '/connection',
     name: 'connection',
-    component: Connection
+    component: () => import("../views/Connection")
   },
   {
     path: '/create-account',
     name: 'CreateAccount',
-    component: CreateAccount
+    component: () => import("../views/CreateAccount")
   },
   {
     path: '/channels',
     name: 'Channels',
-    component: Channels
+    component: () => import("../views/Channels")
+  },
+  {
+    path: '/channel/:id',
+    name: 'Channel',
+    component: () => import("../views/Channel")
   },
   {
     path: '/members',
     name: 'Members',
-    component: Members
+    component: () => import('../views/Members')
   },
   {
-    path: '/messages',
-    name: 'Messages',
-    component: Messages
+    path: '/member/:id',
+    name: 'Member',
+    component: () => import('../views/Member')
   }
 ]
 
