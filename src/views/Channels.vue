@@ -5,37 +5,26 @@
             <div class="container">
                 <div class="header">
                     <h1 class="title intro-title is">Channels</h1>
-                    <button class="button is-primary" @click="isActive = !isActive">Create channel</button>
-                </div>  
-                <div>    
-                    <div class="channel-item" v-for="channel in channels" v-bind:key="channel.id">
-                        <router-link :to="'/channel/'+channel.id">
-                            <p>{{ channel.label }}</p>
-                        </router-link>
+                    <div class="button is-primary" @click="isActive = !isActive">
+                        <i class="material-icons icon">create</i><strong>Create channel</strong>
                     </div>
-                </div> 
-                <!--<div class="column">
-                    <h1 class="title intro-title">Channel selected</h1>
-                    <div v-if="channel">
-                        <div class="channel-visualization">
-                            <div class="container">
-                                <p>{{ channel.topic }}</p>
-                                <p>{{ channel.label }}</p>
+                </div>  
+                <div class="list is-hoverable">    
+                    <div class="list-item" v-for="channel in channels" v-bind:key="channel.id">
+                        <router-link :to="'/channel/'+channel.id">
+                            <i class="material-icons icon">mode_comment</i><strong>    {{ channel.label }}</strong>
+                            <p>{{ channel.topic }}</p>
+                        </router-link>
+                        <div class="channel-buttons">
+                            <div class="button is-danger is-rounded" @click="deleteChannel(channel.id)">
+                                <i class="material-icons icon">delete</i>
                             </div>
-                            <div class="control is-pulled-right">
-                                <div class="button is-danger" @click="deleteChannel()">
-                                    <i class="material-icons icon">delete</i><strong>Delete</strong>
-                                </div>
-                                <div class="button is-primary" @click="shareChannel()">
-                                    <i class="material-icons icon">forward</i><router-link class="item" :to="'/channel/'+channel.id">See messages</router-link>
-                                </div>
-                            </div>    
+                            <div class="button is-warning is-rounded" @click="editChannel(channel)">
+                                <i class="material-icons icon">edit</i>
+                            </div>
                         </div>
                     </div>
-                    <div v-else>
-                        <p>In this section will appear all the messages of a channel selected</p>
-                    </div>
-                </div>-->
+                </div> 
             </div>
         </section>
         <div class="modal" :class="{'is-active': isActive}">
@@ -57,15 +46,19 @@
                                     <input type="text" v-model="topic" class="input is-rounded" name="topic">
                                 </div>
                                 <div class="media-center">
-                                    <button class="button is-link is-rounded" @click="postChannel()">Create</button>
-                                    <button class="button is-danger is-rounded" @click="isActive = false">Cancel</button>
+                                    <div class="button is-link is-rounded" @click="postChannel()">
+                                        <i class="material-icons icon">create</i><strong>Create</strong>
+                                    </div>
+                                    <div type="submit" class="button is-danger is-rounded" @click="isActive = false">
+                                        <i class="material-icons icon">cancel</i><strong>Cancel</strong>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>    
                 </div>
             </div>
-        </div>   
+        </div> 
     </div>
 </template>
 
@@ -97,16 +90,20 @@ export default {
         viewChannel(channel) {
             this.channel = channel;
         },
-        deleteChannel() {
-            axios.delete('channels/'+this.channel.id+'?token='+this.$store.state.session_token)
+        deleteChannel(id) {
+            axios.delete('channels/'+id+'?token='+this.$store.state.session_token)
             .then((response) => {
                 alert('it seems like it worked');
+                this.getChannels();
             })
             .catch(error => console.log(error));
         },
-        editChannel() {
-            axios.put('channels/?token='+this.$store.state.session_token+'&id='+this.channel.id+'&label='+this.channel.label+'&topic='+this.channel.topic).then((response) => {
-                console.log(response.data);
+        editChannel(channel) {
+            axios.put('channels/'+channel.id+'?token='+this.$store.state.session_token, {
+                label: channel.label,
+                topic: channel.topic,
+            }).then((response) => {
+                alert('si jaló');
             }).catch(error => console.log(error));channel
         },
         postChannel() {
@@ -130,12 +127,10 @@ export default {
 </script>
 
 <style scoped>
-.channel-item {
-    height: 2em;
-    margin: 2px;
-    padding: 5px;
-    height: 40px;
-    box-shadow: 0px 0px 1px 0px solid black;
+.list-item {
+    height: 4em;
+    display: flex;
+    justify-content: space-between;
 }
 .header {
     display: flex;
@@ -146,9 +141,7 @@ export default {
     display: flex;
     flex-flow: column wrap;
     justify-content: space-around;
-}
-.item {
-    color: white;
+    text-align: left;
 }
 .media-center {
     display: flex;

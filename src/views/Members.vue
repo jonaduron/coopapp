@@ -1,31 +1,31 @@
 <template>
     <div class="members">
         <Navigation></Navigation>
-        <section class="hero is-medium intro">
-            <div class="hero-body">
-                <div class="container maincontainer">
-                    <div class="column">
-                        <h1 class="title intro-title">Members</h1>
-                        <div class="member-item is-hoverable" v-for="member in members" v-bind:key="member.id" @click="viewMember(member)">
-                            <p>{{ member.fullname }}</p>
-                        </div>
-                    </div> 
-                    <div class="column">
-                        <h1 class="title intro-title">Member selected</h1>
-                        <div v-if="member">
-                            <div class="member-visualization">
-                            <p>{{ member.fullname }}</p>
-                            <p>{{ member.email }}</p>
-                            <div class="button is-danger" @click="deleteMember()">
-                                <i class="material-icons icon">delete</i><strong>Delete</strong>
+        <section class="section">
+            <div class="container">
+                <div class="header">
+                    <h1 class="title intro-title is">Members</h1>
+                </div>  
+                <div class="list is-hoverable">    
+                    <div class="list-item" v-for="member in members" v-bind:key="member.id">
+                        <div class="member-info"> 
+                            <div class="member-img">
+                                <img class="image is-48x48" src="https://gravatar.com/avatar/1b8696ebec002747c0aeb76b51a27346?s=400&d=robohash&r=x"/>  
+                            </div> 
+                            <div class="member-data">
+                                <strong>{{ member.fullname }}</strong><br>
+                                {{ member.email }}
                             </div>
-                        </div>
-                        </div>
-                        <div v-else>
-                            <p>In this section will appear a member selected</p>
+                        </div>    
+                        <div class="member-buttons">
+                            <router-link :to="'/member/'+member.id">
+                                <div class="button is-link is-rounded" >
+                                    <i class="material-icons icon">subject</i><strong>See details</strong>
+                                </div>
+                            </router-link>    
                         </div>
                     </div>
-                </div>
+                </div> 
             </div>
         </section>
     </div>
@@ -72,6 +72,11 @@ export default {
 </script>
 
 <style scoped>
+.list-item {
+    height: 4em;
+    display: flex;
+    justify-content: space-between;
+}
 .member-item {
     height: 2em;
     border: 1px solid gray;
@@ -82,5 +87,17 @@ export default {
 .maincontainer {
     display: flex;
     flex-flow: row wrap;
+}
+.header {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+.member-info {
+    display: flex;
+    flex-flow: row wrap;
+}
+.member-data {
+    text-align: left;
 }
 </style>

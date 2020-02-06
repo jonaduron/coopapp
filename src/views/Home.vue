@@ -1,8 +1,6 @@
 <template>
   <div class="home">
     <Navigation></Navigation>
-    
-    <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
   </div>
 </template>
 
@@ -19,7 +17,8 @@ export default {
       axios.get('ping').then(()=> {
           if(!this.userConnected) {
               this.$router.push('/connection');
-              console.log(this.$store.state.user);
+          }else {
+            this.$router.push('/channels');
           }
       }).catch(() => {
           alert('Cannot connect to the API');

@@ -4,7 +4,7 @@
         <div class="container">
           <div class="navbar-brand">
             <a class="navbar-item">
-              <img src="../assets/coopapp2.png" alt="Coopapp"><p><strong>COOPAPP</strong></p>
+              <img src="../assets/coopapp-nav.png" alt="Coopapp">
             </a>
             <a class="navbar-burger" role="button" @click="showNav = !showNav" :class="{'is-active': showNav}">
               <span></span>
@@ -14,9 +14,6 @@
           </div>
           <div id="navbarmenu" class="navbar-menu" :class="{'is-active': showNav}">
             <div class="navbar-start">
-              <router-link class="navbar-item" to="/">
-                <i class="material-icons icon">home</i><strong>Home</strong>
-              </router-link>
               <router-link class="navbar-item" to="/channels">
                 <i class="material-icons icon">forum</i><strong>Channels</strong>
               </router-link>
@@ -57,11 +54,13 @@ export default {
   methods: {
     signout() {
       axios.delete('members/signout?token='+this.$store.state.session_token).then((response) => {
-        alert(response.status);
         this.$store.state.session_token = false;
         this.$store.state.session_token = false;
         this.$router.push('/connection');
       }).catch(error => console.log(error));
+    },
+    activeRoute() {
+      
     }
   }
 }

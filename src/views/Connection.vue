@@ -48,13 +48,13 @@ export default {
                 this.$store.state.session_token = response.data.token;
                 this.$store.state.user = true;
                 this.$store.state.user_id = response.data.member.id;
-                console.log(response.data);
-                console.log(this.$store.state.user);
-                console.log(this.$store.state.user_id);
                 this.$router.push('/');
             }).catch(
                 error => console.log(error)
             );
+        },
+        getStatus() {
+            
         }
   }
 }
