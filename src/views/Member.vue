@@ -4,21 +4,26 @@
         <section class="section">
             <div class="container">
                 <div class="header">
-                    <h1 class="title intro-title is">Members</h1>
+                    <h1 class="title intro-title is">Member</h1>
                 </div>  
-                <div class="list is-hoverable">    
-                    <div class="list-item" v-for="member in members" v-bind:key="member.id">
-                        <router-link :to="'/member/'+member.id">
-                            <strong>    {{ member.fullname }}</strong>
-                            <p>{{ member.email }}</p>
-                        </router-link>
-                        <div class="member-buttons">
-                            <div class="button is-link is-rounded" @click="deleteChannel(channel.id)">
-                                <i class="material-icons icon">subject</i><strong>See details</strong>
+                <div class="member-div">
+                    <div class="info-div">
+                        <section class="section">
+                            <div class="member-img">
+                                <img class="image is-96x96" src="https://gravatar.com/avatar/1b8696ebec002747c0aeb76b51a27346?s=400&d=robohash&r=x"/>  
                             </div>
-                        </div>
+                            <div>
+                                <p>{{ member.fullname }}</p>
+                                <p>{{ member.email }}</p>    
+                            </div> 
+                        </section>
+                    </div> 
+                    <div class="messages-div">
+                        <div class="list is-hoverable">    
+                            
+                        </div> 
                     </div>
-                </div> 
+                </div>
             </div>
         </section>
     </div>
@@ -34,16 +39,10 @@ export default {
     },
     data() {
         return {
-            members: [],
             member: false
         }
     },
     methods: {
-        getMember() {
-            axios.get('members/').then((response) => {
-                
-            }).catch(error => console.log(error));
-        },
         deleteMember() {
             if(this.member.id == this.$store.state.user_id) {
                 console.log('member-id = '+ this.member.id + 'this.$store.state.user_id = ' + this.$store.state.user_id);
@@ -56,11 +55,16 @@ export default {
         }
     },
     mounted() {
-        this.getMember();
+        this.member = this.getMember(this.$route.params.id);
     }
 }
 </script>
 
 <style scoped>
+.member-div {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
 
 </style>

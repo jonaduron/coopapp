@@ -15,10 +15,10 @@ export default new Vuex.Store({
     user: false,
     session_token: false,
     user_id: null,
-    members: null,
     members: [],
-      member: false,
-      token_session: false
+    channels: [],
+    member: false,
+    token_session: false
   },
   mutations: {
     setMembers(state, members) {
@@ -32,6 +32,9 @@ export default new Vuex.Store({
         state.member = false;
         state.token_session = false;
       }
+    },
+    setChannels(state, data) {
+      state.channels = data;
     }
   },
   actions: {
