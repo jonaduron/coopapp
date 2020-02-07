@@ -11,6 +11,14 @@ export const outils = {
                     return members[i];
                 }
             }
+        },
+        getChannel(id) {
+            let channels = this.$store.state.channels;
+            for(let i = 0; i < channels.length; i++) {
+                if(channels[i].id == id) {
+                    return channels[i];
+                }
+            }
         }
     }
 }

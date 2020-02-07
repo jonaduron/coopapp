@@ -9,7 +9,7 @@
                 </div>
                 <div class="field">
                     <label class="label">Password</label>
-                    <input type="password" v-model="password" class="input is-rounded" name="email">
+                    <input type="password" v-model="password" class="input is-rounded" name="email" v-on:keyup.enter="connect()">
                 </div>
                 <div class="media-center">
                     <button class="button is-primary is-rounded" @click="connect()">Login</button>
@@ -24,8 +24,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-//import HelloWorld from '@/components/HelloWorld.vue'
 import Navigation from '@/components/Navigation.vue'
 
 export default {
@@ -52,6 +50,9 @@ export default {
             }).catch(
                 error => console.log(error)
             );
+            axios.get('members?token='+this.$store.state.session_token).then((response) => {
+                this.$store.commit('setMembers', response.data);
+            }).catch(error => console.log(error));
         },
         getStatus() {
             

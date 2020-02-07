@@ -47,12 +47,7 @@ export default {
     },
     methods: {
         getMembers() {
-            axios.get('members?token='+this.$store.state.session_token).then((response) => {
-                this.members = response.data;
-            }).catch(error => console.log(error));
-        },
-        viewMember(member) {
-            this.member = member;
+            this.members = this.$store.state.members;
         },
         deleteMember() {
             if(this.member.id == this.$store.state.user_id) {
@@ -67,6 +62,7 @@ export default {
     },
     mounted() {
         this.getMembers();
+        console.log(this.$store.state.session_token);
     }
 }
 </script>

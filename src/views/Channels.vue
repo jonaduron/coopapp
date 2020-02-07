@@ -83,20 +83,18 @@ export default {
     },
     methods: {
         getChannels() {
-            axios.get('channels?token='+this.$store.state.session_token).then((response) => {
+            axios.get('channels?token='+this.$store.state.session_token)
+            .then((response) => {
                 this.channels = response.data;
+                this.$store.commit('setChannels', response.data);
             }).catch(error => console.log(error));
-        },
-        viewChannel(channel) {
-            this.channel = channel;
         },
         deleteChannel(id) {
             axios.delete('channels/'+id+'?token='+this.$store.state.session_token)
             .then((response) => {
                 alert('it seems like it worked');
                 this.getChannels();
-            })
-            .catch(error => console.log(error));
+            }).catch(error => console.log(error));
         },
         editChannel(channel) {
             axios.put('channels/'+channel.id+'?token='+this.$store.state.session_token, {
@@ -104,7 +102,7 @@ export default {
                 topic: channel.topic,
             }).then((response) => {
                 alert('si jaló');
-            }).catch(error => console.log(error));channel
+            }).catch(error => console.log(error));
         },
         postChannel() {
             axios.post('channels?token='+this.$store.state.session_token, {
