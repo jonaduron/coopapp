@@ -60,3 +60,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.section {
+    box-sizing: border-box;
+    padding-top: 100px;
+    padding-bottom: 180px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+</style>

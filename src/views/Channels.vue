@@ -19,7 +19,7 @@
                             <div class="button is-danger is-rounded" @click="deleteChannel(channel.id)">
                                 <i class="material-icons icon">delete</i>
                             </div>
-                            <div class="button is-warning is-rounded" @click="editChannel(channel)">
+                            <div class="button is-warning is-rounded" @click="editEvent(channel)">
                                 <i class="material-icons icon">edit</i>
                             </div>
                         </div>
@@ -59,6 +59,38 @@
                 </div>
             </div>
         </div> 
+        <div class="modal" :class="{'is-active': isActive2}">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="hero is-small is-warning is-bold">
+                    <div class="hero-body">
+                        <div class="container">
+                            <div class="is-pulled-left">
+                                <h1 class="title">New chat</h1>
+                            </div>
+                            <div class="form is-pulled-left">
+                                <div class="field">
+                                    <label class="label is-pulled-left">Label: </label>
+                                    <input type="text" v-model="label" class="input is-rounded" name="label">
+                                </div>
+                                <div class="field">
+                                    <label class="label is-pulled-left">Topic: </label>
+                                    <input type="text" v-model="topic" class="input is-rounded" name="topic">                                 
+                                </div>
+                                <div class="media-center">
+                                    <div class="button is-primary is-rounded" @click="editChannel(channel)">
+                                        <i class="material-icons icon">create</i><strong>Edit</strong>
+                                    </div>
+                                    <div type="submit" class="button is-danger is-rounded" @click="isActive2 = false">
+                                        <i class="material-icons icon">cancel</i><strong>Cancel</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div> 
     </div>
 </template>
 
@@ -78,7 +110,8 @@ export default {
             edit: false,
             label: "",
             topic: "",
-            isActive: false
+            isActive: false,
+            isActive2: false
         }    
     },
     methods: {
@@ -98,10 +131,12 @@ export default {
         },
         editChannel(channel) {
             axios.put('channels/'+channel.id+'?token='+this.$store.state.session_token, {
-                label: channel.label,
-                topic: channel.topic,
+                label: this.label,
+                topic: this.topic,
             }).then((response) => {
                 alert('si jaló');
+                this.isActive2 = false;
+                this.getChannels();
             }).catch(error => console.log(error));
         },
         postChannel() {
@@ -112,10 +147,16 @@ export default {
                 console.log('it has been successful bro, you are la verga');
                 this.changeActiveState();
                 this.getChannels();
+                this.label = '';
+                this.topic = '';
             }).catch(error => console.log(error));
         },
         changeActiveState() {
             this.isActive = !this.isActive;
+        },
+        editEvent(channel) {
+            this.channel = channel;
+            this.isActive2 = !this.isActive2;
         }
     },
     mounted() {

@@ -12,9 +12,19 @@
                     </div>    
                 </section>
                 <div class="conteneur">
+                    <div class="recent-chats-container">
+                        <div>
+                            <h1 class="title">Other channels</h1>
+                        </div>
+                        <div class="list-item" v-for="channel in channels" v-bind:key="channel.id" @click="goToChannel(channel)">
+                            <router-link :to="'/channel/'+channel.id"> 
+                                <p class="is-size-6 has-text-black-bis	">{{ channel.label }}</p>
+                            </router-link>
+                        </div>
+                    </div>
                     <div class="container" style="position: relative;">
                         <div class="chat-container">
-                            <div>
+                            <div class="message-container">
                                 <div v-for="message in messages" v-bind:key="message.id">
                                     <div class="message">
                                         <div class="message-info">
@@ -25,12 +35,12 @@
                                             <div class="content">{{ message.message }}</div>
                                         </div>
                                         <div class="message-buttons">
-                                            <button type="button" class="btn-icon-message button is-danger is-outlined is-rounded" @click="deleteMessage()">
+                                            <button type="button" class="btn-icon-message button is-danger is-outlined is-rounded" @click="deleteMessage(message)">
                                                 <div>
                                                     <i class="material-icons icon">delete</i>
                                                 </div>
                                             </button>
-                                            <button type="button" class="btn-icon-message button is-warning is-outlined is-rounded" @click="editMessage()">
+                                            <button type="button" class="btn-icon-message button is-warning is-outlined is-rounded" @click="editMessage(message)">
                                                 <div>
                                                     <i class="material-icons icon">edit</i>
                                                 </div>
@@ -39,7 +49,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="typer">
                             <input type="text" v-model="message" name="message" placeholder="Type here..." v-on:keyup.enter="posterMessage()">
                             <div class="buttons">
@@ -56,16 +66,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="recent-chats-container">
-                        <div>
-                            <h1 class="title">Other channels</h1>
-                        </div>
-                        <div class="list-item" v-for="channel in channels" v-bind:key="channel.id" @click="goToChannel(channel)">
-                            <router-link :to="'/channel/'+channel.id"> 
-                                <p class="is-size-6 has-text-black-bis	">{{ channel.label }}</p>
-                            </router-link>
-                        </div>
-                    </div> 
                 </div>
             </div>
         </div>          
@@ -111,10 +111,11 @@ export default {
                 console.log('it has been successful bro, you are la verga');
                 this.getChannels();
                 this.getMessages();
+                this.message = '';
             }).catch(error => console.log(error));
         },
         deleteMessage(message) {
-            axios.delete('channels/'+this.channel.id+'/posts/'+message.id).then((response) => {
+            axios.delete('channels/'+this.channel.id+'/posts/'+message.id+'?token='+this.$store.state.session_token).then((response) => {
                 console.log('it has been successful bro, you are la verga');
                 this.getChannels();
                 this.getMessages();
@@ -135,9 +136,6 @@ export default {
         },
         getMember(member_id) {
             this.member = this.getMember(member_id);
-        },
-        goToChannel() {
-            this.vm.$forceUpdate();
         }
     },
     mounted () {
@@ -152,19 +150,16 @@ export default {
 .conteneur {
     display: flex;
 }
-.conteneur > :first-child {
-    order: 2;
-}
-.conteneur > :nth-child(2) {
-    order: 1;  
-}
 .chat-container {
+    padding: 5px;
     display: flex;
     box-sizing: border-box;
-    height: calc(100vh - 13.5rem);
+    height: 100%;
     overflow-y: auto;
-    padding: 10px;
     background-color: #f2f2f2;
+}
+.message-container {
+    width: 100%;
 }
 .message {
     width: 100%;
@@ -177,9 +172,10 @@ export default {
 .typer {
     box-sizing: border-box;
     align-items: center;
+    position: fixed;
     bottom: 0;
     height: 3.5rem;
-    width: 100%;
+    width: 69.1%;
     background-color: #fff;
     box-shadow: 0 -5px 10px -5px rgba(0,0,0,.2);
 }
@@ -194,25 +190,18 @@ export default {
     font-size: 1.25rem;
 }
 .material-icons {
-    font-family: 'Material Icons';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;
-    line-height: 1;
+    font-size: 26px;
     letter-spacing: normal;
-    text-transform: none;
     display: inline-block;
     white-space: nowrap;
     word-wrap: normal;
-    direction: ltr;
 }
 .chat-container .content {
     padding: 8px;
-    background-color: #90ee90;
     border-radius: 10px;
     display: inline-block;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
-    max-width: 50%;
+    max-width: 100%;
     word-wrap: break-word;
 }
 .message {
@@ -246,8 +235,8 @@ export default {
 }
 .recent-chats-container {
     margin-top: 5px;
+    max-width: 220px;
 }
-
 .btn-icon-message {
     height: 30px;
     width: 30px;
