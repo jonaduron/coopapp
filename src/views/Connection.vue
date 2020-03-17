@@ -43,9 +43,7 @@ export default {
                 email: this.email,
                 password: this.password
             }).then((response) => {
-                this.$store.state.session_token = response.data.token;
-                this.$store.state.user = true;
-                this.$store.state.user_id = response.data.member.id;
+                this.$store.commit('setSessionMember', response.data);
                 this.$router.push('/');
             }).catch(
                 error => console.log(error)

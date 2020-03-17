@@ -13,25 +13,26 @@ export default new Vuex.Store({
   plugins: [vp.plugin],
   state: {
     user: false,
-    session_token: false,
-    user_id: null,
+    session_token: null,
     members: [],
     channels: [],
-    member: false,
-    token_session: false
+    member: null,
   },
   mutations: {
     setMembers(state, members) {
       state.members = members;
     },
     setSessionMember(state, data) {
-      if(data) {
         state.member = data.member;
-        state.token_session = data.token;
-      } else {
+        state.session_token = data.token;
+        state.user = true;
+    },
+    unsetSessionMember(state, data) {
         state.member = false;
-        state.token_session = false;
-      }
+        state.session_token = false;
+        state.user = false;
+        state.members = null;
+        state.channels = null;
     },
     setChannels(state, data) {
       state.channels = data;

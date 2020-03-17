@@ -1,7 +1,7 @@
 export const outils = {
     methods: {
         getAvatar(membre) {
-            let hash = md5(member.email);
+            let hash = md5(membre.email);
             return 'https://avatars.dicebear.com/v2/bottts/'+hash;
         },
         getMember(id) {

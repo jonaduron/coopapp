@@ -53,14 +53,11 @@ export default {
   },
   methods: {
     signout() {
-      axios.delete('members/signout?token='+this.$store.state.session_token).then((response) => {
-        this.$store.state.session_token = false;
-        this.$store.state.session_token = false;
+      axios.delete('members/signout?token='+this.$store.state.session_token)
+      .then(response => {
+        this.$store.commit('unsetSessionMember', response.data);
         this.$router.push('/connection');
       }).catch(error => console.log(error));
-    },
-    activeRoute() {
-      
     }
   }
 }

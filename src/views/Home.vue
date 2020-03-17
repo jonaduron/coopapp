@@ -15,7 +15,7 @@ export default {
   },
   mounted() {
       axios.get('ping').then(()=> {
-          if(!this.userConnected) {
+          if(this.$store.state.session_token == false) {
               this.$router.push('/connection');
           }else {
             this.$router.push('/channels');
