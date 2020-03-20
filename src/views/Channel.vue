@@ -88,7 +88,8 @@ export default {
             id: 0,
             message: "",
             channels: [],
-            members: null
+            members: null,
+            member: []
         }
     },
     methods: {
@@ -108,7 +109,7 @@ export default {
                 message: this.message,
                 token: this.$store.state.session_token
             }).then((response) => {
-                console.log('it has been successful bro, you are la verga');
+                console.log('it has been successful');
                 this.getChannels();
                 this.getMessages();
                 this.message = '';
@@ -116,7 +117,7 @@ export default {
         },
         deleteMessage(message) {
             axios.delete('channels/'+this.channel.id+'/posts/'+message.id+'?token='+this.$store.state.session_token).then((response) => {
-                console.log('it has been successful bro, you are la verga');
+                console.log('it has been successful');
                 this.getChannels();
                 this.getMessages();
             }).catch(error => console.log(error));
@@ -126,7 +127,7 @@ export default {
                 message: this.message,
                 token: this.store.state.user_id
             }).then((response) => {
-                console.log('it has been successful bro, you are la verga');
+                console.log('it has been successful');
                 this.getChannels();
                 this.getMessages();
             }).catch(error => console.log(error));            
@@ -136,6 +137,7 @@ export default {
         },
         getMember(member_id) {
             this.member = this.getMember(member_id);
+            console.log(this.member.nom);
         }
     },
     mounted () {

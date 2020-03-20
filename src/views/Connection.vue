@@ -51,9 +51,6 @@ export default {
             axios.get('members?token='+this.$store.state.session_token).then((response) => {
                 this.$store.commit('setMembers', response.data);
             }).catch(error => console.log(error));
-        },
-        getStatus() {
-            
         }
   }
 }
