@@ -20,9 +20,6 @@
               <router-link class="navbar-item" to="/members">
                 <i class="material-icons icon">group</i><strong>Members</strong>
               </router-link>         
-              <router-link class="navbar-item" to="/about">
-                <i class="material-icons icon">info</i><strong>About</strong>
-              </router-link>
             </div>
             <hr class="nabar-divider">
             <div class="navbar-end">
