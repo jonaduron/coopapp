@@ -7,7 +7,7 @@
               <img src="../assets/coopapp-nav.png" alt="Coopapp image">
             </a>
             <a class="navbar-burger" role="button" @click="showNav = !showNav" :class="{'is-active': showNav}">
-              <span></span>
+              <span>Hello maifrend</span>
               <span></span>
               <span></span>
             </a>
