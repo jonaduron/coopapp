@@ -60,7 +60,7 @@
                                 </button>
                                 <button type="button" class="btn--icon button is-link is-outlined is-rounded" @click="posterMessage()">
                                     <div class="btn_content">
-                                        <i class="material-icons icon">send</i>
+                                        <i class="material-icons icon">Send</i>
                                     </div>
                                 </button>
                             </div>
