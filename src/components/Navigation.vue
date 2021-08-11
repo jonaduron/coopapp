@@ -4,7 +4,7 @@
         <div class="container">
           <div class="navbar-brand">
             <a class="navbar-item">
-              <img src="../assets/coopapp-nav.png" alt="Coopapp">
+              <img src="../assets/coopapp-nav.png" alt="Coopapp image">
             </a>
             <a class="navbar-burger" role="button" @click="showNav = !showNav" :class="{'is-active': showNav}">
               <span></span>
